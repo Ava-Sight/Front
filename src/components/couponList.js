@@ -1,40 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Axios from "axios";
-import { FileDrop } from "react-file-drop";
 
 import ListItem from "./listItem";
-
-const coupons = [
-  {
-    nombre: "Paquete individual por $49",
-    link: "www.avacoupon.com/PolloandCo134",
-    empresa: "Pollo and Co",
-    abierto: "153",
-    usado: "28",
-  },
-  {
-    nombre: "Paquete individual por $49",
-    link: "www.avacoupon.com/PolloandCo134",
-    empresa: "Pollo and Co",
-    abierto: "153",
-    usado: "28",
-  },
-  {
-    nombre: "Paquete individual por $49",
-    link: "www.avacoupon.com/PolloandCo134",
-    empresa: "Pollo and Co",
-    abierto: "153",
-    usado: "28",
-  },
-  {
-    nombre: "Paquete individual por $49",
-    link: "www.avacoupon.com/PolloandCo134",
-    empresa: "Pollo and Co",
-    abierto: "153",
-    usado: "28",
-  },
-];
 
 const MainContainer = styled.div`
   display: flex;

@@ -166,13 +166,8 @@ const Button = styled.button`
   }
 `;
 
-const InvInput = styled.input`
-  visibility: hidden;
-`;
-
 const NewCoupon = () => {
   //ref
-  const fileInputRef = useRef(null);
 
   //states
   const [folder, setFolder] = useState(null);
@@ -183,7 +178,7 @@ const NewCoupon = () => {
   const onSubmit = (data) => {
     console.log("form data:", data);
     uploadCoupon(data);
-    // reset();
+    reset();
   };
 
   // const onFileInputChange = async (event) => {

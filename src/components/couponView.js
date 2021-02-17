@@ -49,8 +49,10 @@ const MiniTitle = styled.div`
 
 const SucursalesCont = styled.div`
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   margin-top: 20px;
+  align-self: flex-start;
+  margin-left: 40px;
 `;
 
 const Sucursales = styled.div`
@@ -71,8 +73,7 @@ const CouponView = (props) => {
   const [coupon, setCoupon] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    console.log("useEffect fire");
+  const fetch = () => {
     Axios.get(
       `http://localhost:4000/coupon/url/${props.match.params.couponUrl}`
     )
@@ -91,6 +92,11 @@ const CouponView = (props) => {
         setCoupon("error");
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    //
+    fetch();
   }, []);
 
   const downloadPass = async () => {
