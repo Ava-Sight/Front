@@ -73,7 +73,8 @@ const CouponView = (props) => {
   const [coupon, setCoupon] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetch = () => {
+  useEffect(() => {
+    console.log("useEffect fire");
     Axios.get(
       `http://localhost:4000/coupon/url/${props.match.params.couponUrl}`
     )
@@ -92,12 +93,7 @@ const CouponView = (props) => {
         setCoupon("error");
         setLoading(false);
       });
-  };
-
-  useEffect(() => {
-    //
-    fetch();
-  }, []);
+  }, [props.match.params.couponUrl]);
 
   const downloadPass = async () => {
     window.open(coupon.pkpassUrl, "_blank");
