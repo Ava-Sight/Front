@@ -90,7 +90,9 @@ const NewCoupon = () => {
   const [couponList, setCouponList] = useState([]);
 
   useEffect(() => {
-    Axios.get("http://localhost:4000/coupon").then((res) => {
+    Axios.get(
+      "http://ec2-54-86-4-187.compute-1.amazonaws.com:4000/coupon"
+    ).then((res) => {
       console.log(res.data);
       setCouponList(res.data);
     });

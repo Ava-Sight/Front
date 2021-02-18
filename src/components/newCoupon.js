@@ -214,11 +214,15 @@ const NewCoupon = () => {
     });
 
     console.log("formData", formData);
-    Axios.post("http://localhost:4000/coupon/uploadpass", formData, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    }).then((res) => console.log(res.data));
+    Axios.post(
+      "http://ec2-54-86-4-187.compute-1.amazonaws.com:4000/coupon/uploadpass",
+      formData,
+      {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      }
+    ).then((res) => console.log(res.data));
   };
 
   return (
