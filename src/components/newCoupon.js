@@ -214,15 +214,11 @@ const NewCoupon = () => {
     });
 
     console.log("formData", formData);
-    Axios.post(
-      "http://ec2-3-216-159-184.compute-1.amazonaws.com:4000/coupon/uploadpass",
-      formData,
-      {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      }
-    ).then((res) => console.log(res.data));
+    Axios.post("https://avasight.herokuapp.com/coupon/uploadpass", formData, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    }).then((res) => console.log(res.data));
   };
 
   return (

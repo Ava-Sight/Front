@@ -90,9 +90,7 @@ const NewCoupon = () => {
   const [couponList, setCouponList] = useState([]);
 
   useEffect(() => {
-    Axios.get(
-      "http://ec2-3-216-159-184.compute-1.amazonaws.com:4000/coupon"
-    ).then((res) => {
+    Axios.get("https://avasight.herokuapp.com/coupon").then((res) => {
       console.log(res.data);
       setCouponList(res.data);
     });
