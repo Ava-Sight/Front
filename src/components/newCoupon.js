@@ -215,7 +215,7 @@ const NewCoupon = () => {
 
     console.log("formData", formData);
     Axios.post(
-      "http://ec2-54-86-4-187.compute-1.amazonaws.com:4000/coupon/uploadpass",
+      "http://ec2-3-216-159-184.compute-1.amazonaws.com:4000/coupon/uploadpass",
       formData,
       {
         headers: {

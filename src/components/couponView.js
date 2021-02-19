@@ -76,7 +76,7 @@ const CouponView = (props) => {
   useEffect(() => {
     console.log("useEffect fire");
     Axios.get(
-      `http://ec2-54-86-4-187.compute-1.amazonaws.com:4000/coupon/url/${props.match.params.couponUrl}`
+      `http://ec2-3-216-159-184.compute-1.amazonaws.com:4000/coupon/url/${props.match.params.couponUrl}`
     )
       .then((res) => {
         console.log("coupon data", res.data);

@@ -91,7 +91,7 @@ const NewCoupon = () => {
 
   useEffect(() => {
     Axios.get(
-      "http://ec2-54-86-4-187.compute-1.amazonaws.com:4000/coupon"
+      "http://ec2-3-216-159-184.compute-1.amazonaws.com:4000/coupon"
     ).then((res) => {
       console.log(res.data);
       setCouponList(res.data);
