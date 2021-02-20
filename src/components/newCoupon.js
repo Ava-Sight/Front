@@ -184,6 +184,7 @@ const NewCoupon = () => {
     reset();
   };
 
+  const clearForm = () => reset();
   // const onFileInputChange = async (event) => {
   //   const { files } = event.target;
   //   // await setFolder(files);
@@ -233,15 +234,17 @@ const NewCoupon = () => {
           progress: undefined,
         })
       )
-      .catch((err) => toast.success("Creacion de cupon fallida"), {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      .catch((err) =>
+        toast.success("Creacion de cupon fallida", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      );
   };
 
   return (
@@ -401,7 +404,7 @@ const NewCoupon = () => {
         </FormBottom>
         <ButtonCont>
           <Button type="submit">Crear</Button>
-          <Button>Cancelar</Button>
+          <Button onClick={clearForm}>Cancelar</Button>
         </ButtonCont>
       </FormCont>
       <ToastContainer />

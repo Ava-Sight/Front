@@ -89,13 +89,18 @@ const ItemCont = styled.div`
 
 const NewCoupon = () => {
   const [couponList, setCouponList] = useState([]);
+  const [FireEffect, setFireEffect] = useState(false);
 
   useEffect(() => {
     Axios.get("https://avasight.herokuapp.com/coupon").then((res) => {
       console.log(res.data);
       setCouponList(res.data);
     });
-  }, []);
+  }, [FireEffect]);
+
+  const deleteCoupon = (couponId) => {
+    setFireEffect(!FireEffect);
+  };
 
   return (
     <MainContainer>
@@ -119,7 +124,7 @@ const NewCoupon = () => {
           <ItemCont>
             {couponList.map((coupon, i) => (
               // <ul>
-              <ListItem coupon={coupon} />
+              <ListItem coupon={coupon} key={i} deleteCoupon={deleteCoupon} />
               // </ul>
             ))}
           </ItemCont>

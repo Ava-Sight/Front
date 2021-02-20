@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
+import Axios from "axios";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ItemCont = styled.div`
   display: flex;
@@ -62,6 +67,7 @@ const Button = styled.div`
   align-items: center;
   margin-top: 20px;
   margin-bottom: 30px;
+  cursor: pointer;
 `;
 
 const ButtonCont = styled.div`
@@ -70,11 +76,60 @@ const ButtonCont = styled.div`
   justify-content: space-around;
 `;
 
-const ListItem = ({ coupon }) => {
+const ModalStyled = styled(Modal)`
+  .react-confirm-alert-overlay {
+    z-index: 999999999;
+  }
+`;
+
+const ListItem = ({ coupon, reloadCoupon }) => {
   const [modalActive, setModalActive] = useState(false);
 
   const modalFire = () => {
     setModalActive(!modalActive);
+  };
+
+  const deleteItem = () => {
+    confirmAlert({
+      title: "Estas seguro",
+      message: "",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            //delete enpoint
+            Axios.delete(`https://avasight.herokuapp.com/coupon/${coupon.id}`)
+              .then(async (res) => {
+                await reloadCoupon();
+                toast.success("Cupon Eliminado exitosamente 🚀 ", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              })
+              .catch((err) => {
+                //react toasty failed delete
+                toast.success("Creacion de cupon fallida", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              });
+          },
+        },
+        {
+          label: "No",
+        },
+      ],
+    });
   };
 
   return (
@@ -86,7 +141,7 @@ const ListItem = ({ coupon }) => {
         <ListProperty4>n/a</ListProperty4>
         <ListProperty5>n/a</ListProperty5>
       </ItemCont>
-      <Modal open={modalActive} onClose={modalFire}>
+      <ModalStyled open={modalActive} onClose={modalFire}>
         <h2>{coupon.promo}</h2>
         <ModalCouponCont>
           <ModalTextCont>
@@ -104,9 +159,10 @@ const ListItem = ({ coupon }) => {
         </ModalCouponCont>
         <ButtonCont>
           <Button>Editar</Button>
-          <Button>Eliminar</Button>
+          <Button onClick={deleteItem}>Eliminar</Button>
         </ButtonCont>
-      </Modal>
+        <ToastContainer />
+      </ModalStyled>
     </>
   );
 };
