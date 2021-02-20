@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 import Logo from "../assets/logo.png";
 
 const MainContainer = styled.div`
@@ -62,6 +62,13 @@ const LogoImg = styled.img`
 `;
 
 const SideNav = () => {
+  let history = useHistory();
+
+  const logout = async () => {
+    await localStorage.removeItem("jwt");
+    history.push("login");
+  };
+
   return (
     <MainContainer>
       {/* logo */}
@@ -70,9 +77,11 @@ const SideNav = () => {
       </LogoCont>
       <LinkCont>
         <StyledNavLink to="/admin/crear-cupon">crear cupon</StyledNavLink>
-        <StyledNavLink to="/admin/cupones">cupones activos</StyledNavLink>
+        <StyledNavLink exact to="/admin/">
+          cupones activos
+        </StyledNavLink>
       </LinkCont>
-      <Button>Cerrar Seción</Button>
+      <Button onClick={logout}>Cerrar Seción</Button>
     </MainContainer>
   );
 };

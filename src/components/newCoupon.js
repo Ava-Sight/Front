@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import Axios from "axios";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { FileDrop } from "react-file-drop";
 
 const MainContainer = styled.div`
@@ -76,7 +77,9 @@ const DropCont = styled.div``;
 const DropArea = styled(FileDrop)`
   padding: 5px 0 5px 0;
   width: 130%;
-  border: 1px dashed black;
+  /* border: 1px dashed black; */
+  border: ${(props) =>
+    props.fileDropped ? "1px dashed #ff6604" : "1px dashed black"};
   border-radius: 10px;
   margin-top: 5px;
   font-size: 10px;
@@ -218,7 +221,27 @@ const NewCoupon = () => {
       headers: {
         "content-type": "multipart/form-data",
       },
-    }).then((res) => console.log(res.data));
+    })
+      .then((res) =>
+        toast.success("Cupon creado exitosamente 🚀 ", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      )
+      .catch((err) => toast.success("Creacion de cupon fallida"), {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
   };
 
   return (
@@ -226,6 +249,17 @@ const NewCoupon = () => {
       {/* titulo */}
       <Title>Crear Cupon</Title>
       {/* Form Cont */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <FormCont onSubmit={handleSubmit(onSubmit)}>
         {/* form top */}
         {/* 3 sections column */}
@@ -237,20 +271,35 @@ const NewCoupon = () => {
             <DropCont>
               <FormSubtitle>Sitio Web</FormSubtitle>
               <DropArea
+                fileDropped={webImg}
                 onDrop={async (files, event) => {
                   await setWebImg(files);
                   console.log("img state", webImg);
                 }}
               >
-                Arrastrar archivo
+                {webImg ? [...webImg][0].name : "Arrastrar archivo"}
               </DropArea>
             </DropCont>
             <DropCont>
-              <FormSubtitle>Pase Apple</FormSubtitle>
+              <FormSubtitleCont>
+                <FormSubtitle>Pase Apple</FormSubtitle>
+                <FormNote>pkpass</FormNote>
+              </FormSubtitleCont>
               <DropArea
-                onDrop={(files, event) => console.log("onDrop!", files, event)}
+                fileDropped={folder}
+                onDrop={async (files, event) => {
+                  await setFolder(files);
+                  // const reader = new FileReader();
+                  // reader.readAsText(files[0]);
+                  // reader.onload = async (e) => {
+                  //   console.log("read as text ::", e.target.result);
+                  //   await setFolder(e.target.result);
+                  // };
+
+                  console.log("folder state", folder);
+                }}
               >
-                Arrastrar archivo
+                {folder ? [...folder][0].name : "Arrastrar archivo"}
               </DropArea>
             </DropCont>
             <DropCont>
@@ -265,28 +314,6 @@ const NewCoupon = () => {
               <FormSubtitle>Hero Apple</FormSubtitle>
               <DropArea
                 onDrop={(files, event) => console.log("onDrop!", files, event)}
-              >
-                Arrastrar archivo
-              </DropArea>
-            </DropCont>
-            <DropCont>
-              <FormSubtitleCont>
-                <FormSubtitle>Pase Apple</FormSubtitle>
-                <FormNote>pkpass</FormNote>
-              </FormSubtitleCont>
-              <DropArea
-                onDrop={async (files, event) => {
-                  console.log("drop files : ", files);
-                  await setFolder(files);
-                  // const reader = new FileReader();
-                  // reader.readAsText(files[0]);
-                  // reader.onload = async (e) => {
-                  //   console.log("read as text ::", e.target.result);
-                  //   await setFolder(e.target.result);
-                  // };
-
-                  console.log("folder state", folder);
-                }}
               >
                 Arrastrar archivo
               </DropArea>
@@ -377,6 +404,7 @@ const NewCoupon = () => {
           <Button>Cancelar</Button>
         </ButtonCont>
       </FormCont>
+      <ToastContainer />
     </MainContainer>
   );
 };

@@ -84,6 +84,7 @@ const ListProperty5 = styled.div`
 const ItemCont = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
 `;
 
 const NewCoupon = () => {
@@ -113,7 +114,7 @@ const NewCoupon = () => {
             <ListProperty2>Link</ListProperty2>
             <ListProperty3>Empresa</ListProperty3>
             <ListProperty4>Abierto</ListProperty4>
-            <ListProperty5>sado</ListProperty5>
+            <ListProperty5>Usado</ListProperty5>
           </ListPropertiesCont>
           <ItemCont>
             {couponList.map((coupon, i) => (

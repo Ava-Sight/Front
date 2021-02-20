@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 import Login from "./components/login";
 import Admin from "./components/admin";
 import CouponView from "./components/couponView";
-
+import PrivateRoute from "./utils/privateRoute";
 const MainContainer = styled.div`
   display: flex;
   width: 100%;
@@ -24,9 +29,17 @@ function App() {
         <Page>
           <Switch>
             {/* Dynamic routing */}
-            <Route exact path="/" component={Login} />
-            <Route exact path="/admin" component={Admin} />
-            <Route exact path="/:couponUrl" component={CouponView} />
+            <Route exact path="/login" component={Login} />
+            <Route
+              exact
+              path="/"
+              render={() => {
+                window.location.href = "home.html";
+              }}
+            />
+
+            <PrivateRoute exact path="/admin" component={Admin} />
+            <Route exact path="/cupon/:couponUrl" component={CouponView} />
           </Switch>
         </Page>
       </MainContainer>

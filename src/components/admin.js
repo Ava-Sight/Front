@@ -27,7 +27,7 @@ const Admin = () => {
         <Page>
           <Switch>
             <Route exact path="/admin/crear-cupon" component={NewCoupon} />
-            <Route exact path="/admin/cupones" component={CouponList} />
+            <Route exact path="/admin" component={CouponList} />
           </Switch>
         </Page>
       </MainContainer>
