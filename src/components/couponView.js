@@ -76,9 +76,12 @@ const Bullet = styled.li`
 `;
 const Sucursales = styled.div`
   display: flex;
-  color: #ff6601;
-  text-decoration: underline;
 `;
+
+const SucursalLink = styled.div`
+color: #ff6601;
+text-decoration:underline;
+`
 
 const SucursalesMap = styled.div`
   font-size: 15px;
@@ -174,8 +177,8 @@ const CouponView = (props) => {
           <SucursalesCont>
             {coupon.sucursales.map((sucursal, i) => (
               <Bullet key={i}>
-                <Sucursales onClick={() => openMapLink(i)}>
-                  {sucursal}
+                <Sucursales>
+                  {`${sucursal} - `}<SucursalLink onClick={() => openMapLink(i}>Abrir Mapa</SucursalLink>
                 </Sucursales>
               </Bullet>
             ))}
