@@ -29,7 +29,7 @@ function App() {
         <Page>
           <Switch>
             {/* Dynamic routing */}
-            <Route exact path="/login" component={Login} />
+            <Route path="/login" component={Login} />
             <Route
               exact
               path="/"
@@ -38,8 +38,8 @@ function App() {
               }}
             />
 
-            <PrivateRoute exact path="/admin" component={Admin} />
-            <Route exact path="/cupon/:couponUrl" component={CouponView} />
+            <PrivateRoute strict path="/admin" component={Admin} />
+            <Route exact path="/:couponUrl" component={CouponView} />
           </Switch>
         </Page>
       </MainContainer>

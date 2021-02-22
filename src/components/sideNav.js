@@ -63,7 +63,6 @@ const LogoImg = styled.img`
 
 const SideNav = () => {
   let history = useHistory();
-
   const logout = async () => {
     await localStorage.removeItem("jwt");
     history.push("login");
@@ -76,12 +75,12 @@ const SideNav = () => {
         <LogoImg src={Logo} />
       </LogoCont>
       <LinkCont>
-        <StyledNavLink to="/admin/crear-cupon">crear cupon</StyledNavLink>
-        <StyledNavLink exact to="/admin/">
-          cupones activos
+        <StyledNavLink to="/admin/crear-cupon">Crear cupón</StyledNavLink>
+        <StyledNavLink exact to="/admin">
+          Cupones activos
         </StyledNavLink>
       </LinkCont>
-      <Button onClick={logout}>Cerrar Seción</Button>
+      <Button onClick={logout}>Cerrar sesión</Button>
     </MainContainer>
   );
 };

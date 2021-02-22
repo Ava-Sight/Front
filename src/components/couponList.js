@@ -55,7 +55,7 @@ const SubText = styled.div`
 const ListCont = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 15px 0 15px;
+  padding: 10px 15px 0 15px;
 `;
 
 const ListPropertiesCont = styled.div`
@@ -66,13 +66,13 @@ const ListPropertiesCont = styled.div`
   color: gray;
 `;
 const ListProperty1 = styled.div`
-  width: 30%;
+  width: 25%;
 `;
 const ListProperty2 = styled.div`
   width: 30%;
 `;
 const ListProperty3 = styled.div`
-  width: 20%;
+  width: 25%;
 `;
 const ListProperty4 = styled.div`
   width: 10%;
@@ -98,7 +98,7 @@ const NewCoupon = () => {
     });
   }, [FireEffect]);
 
-  const deleteCoupon = (couponId) => {
+  const reloadCoupon = (couponId) => {
     setFireEffect(!FireEffect);
   };
 
@@ -124,7 +124,7 @@ const NewCoupon = () => {
           <ItemCont>
             {couponList.map((coupon, i) => (
               // <ul>
-              <ListItem coupon={coupon} key={i} deleteCoupon={deleteCoupon} />
+              <ListItem coupon={coupon} key={i} deleteCoupon={reloadCoupon} />
               // </ul>
             ))}
           </ItemCont>

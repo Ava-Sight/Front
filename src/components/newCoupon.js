@@ -178,9 +178,9 @@ const NewCoupon = () => {
 
   //form
   const { register, handleSubmit, reset } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("form data:", data);
-    uploadCoupon(data);
+    await uploadCoupon(data);
     reset();
   };
 
@@ -197,11 +197,14 @@ const NewCoupon = () => {
   //   fileInputRef.current.click();
   // };
 
-  const uploadCoupon = async (formDatata) => {
+  const uploadCoupon = async (formDataState) => {
     console.log("button fire");
-
+    let cleanedFormDataState = formDataState;
+    cleanedFormDataState.url = cleanedFormDataState.url.replace("/", "");
     const formData = new FormData();
-    const blob = new Blob([JSON.stringify(formDatata)], {
+    // passing form data with new url without "/"
+
+    const blob = new Blob([JSON.stringify(cleanedFormDataState)], {
       type: "application/json",
     });
 
@@ -216,14 +219,14 @@ const NewCoupon = () => {
       console.log(file);
       formData.append("img", file);
     });
-
     console.log("formData", formData);
+
     Axios.post("https://avasight.herokuapp.com/coupon/uploadpass", formData, {
       headers: {
         "content-type": "multipart/form-data",
       },
     })
-      .then((res) =>
+      .then((res) => {
         toast.success("Cupon creado exitosamente 🚀 ", {
           position: "top-right",
           autoClose: 5000,
@@ -232,8 +235,9 @@ const NewCoupon = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        })
-      )
+        });
+        clearForm();
+      })
       .catch((err) =>
         toast.success("Creacion de cupon fallida", {
           position: "top-right",
@@ -329,7 +333,7 @@ const NewCoupon = () => {
           <FormMiddleCont>
             <FormInputCont>
               <FormSubtitle>Hipervínculo</FormSubtitle>
-              <FormInput name="url" ref={register} placeholder="url" />
+              <FormInput name="url" ref={register} placeholder="/link" />
             </FormInputCont>
             <FormInputCont>
               <FormSubtitle>Sucursales cercanas</FormSubtitle>

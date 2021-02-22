@@ -4,27 +4,31 @@ import styled from "styled-components";
 import { isAndroid } from "react-device-detect";
 
 //imgs
-import AddToWallet from "../assets/appleWallet.png";
+import AddToWallet from "../assets/appleWallet.svg";
 
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   /* background-color: #f7f8fc; */
   height: 100vh;
+
+  /* flex-basis: 100%; */
   width: 100%;
   align-content: center;
   align-items: center;
+  margin-top: 20px;
 `;
 
 const Title = styled.div`
-  margin: 30px 0 30px 0;
+  margin: 25px 0 15px 0;
   font-size: 26px;
   font-weight: bold;
+  text-align: center;
 `;
 
 const SubTitle = styled.div`
-  font-size: 20px;
-  margin-top: 30px;
+  font-size: 17px;
+  margin-top: 15px;
 `;
 
 const ImgCont = styled.div`
@@ -37,25 +41,42 @@ const Img = styled.img`
 
 const SubText = styled.div`
   font-size: 20px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 15px;
+  margin-bottom: 25px;
   text-align: center;
 `;
 
 const MiniTitle = styled.div`
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 17px;
+  font-weight: 600;
 `;
 
-const SucursalesCont = styled.div`
+const SucursalesCont = styled.ul`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-top: 20px;
   align-self: flex-start;
-  margin-left: 40px;
+  /* margin-left: 40px; */
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+  ::after {
+    height: 0;
+    width: 45%;
+    content: "";
+  }
+`;
+const Bullet = styled.li`
+  display: list-item;
+  font-size: 15px;
+  margin-bottom: 15px;
+  width: 45%;
+`;
+const Sucursales = styled.li`
+  display: flex;
 `;
 
-const Sucursales = styled.div`
+const SucursalesMap = styled.div`
   font-size: 15px;
   margin-bottom: 15px;
 `;
@@ -69,6 +90,16 @@ const AddWalletImg = styled.img`
   width: 100%;
 `;
 
+const Footer = styled.div`
+  display: flex;
+  font-size: 16px;
+  /* margin-top: auto; */
+`;
+const ATag = styled.a`
+  margin-left: 5px;
+  /* margin-top: auto; */
+`;
+
 const CouponView = (props) => {
   const [coupon, setCoupon] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -78,25 +109,39 @@ const CouponView = (props) => {
     Axios.get(
       `https://avasight.herokuapp.com/coupon/url/${props.match.params.couponUrl}`
     )
-      .then((res) => {
+      .then(async (res) => {
         console.log("coupon data", res.data);
-        let modCouponObj = res.data;
-        modCouponObj.sucursales.includes(",")
-          ? (modCouponObj.sucursales = res.data.sucursales.split(","))
-          : (modCouponObj.sucursales = [...res.data.sucursales]);
+        const couponObj = {
+          url: res.data.url,
+          sucursales: res.data.sucursales.includes(",")
+            ? res.data.sucursales.replace(/\[.*?[^)]\]/g, "").split(",")
+            : [...res.data.sucursales.replace(/\[.*?[^)]\]/g, "")],
+          mapUrls: res.data.sucursales
+            .match(/\[.*?[^)]\]/g, "")
+            .map((match) => match.replace(/[\][]/g, "")),
+          empresa: res.data.empresa,
+          promo: res.data.promo,
+          webImgUrl: res.data.webImgUrl,
+          pkpassUrl: res.data.pkpassUrl,
+        };
+        console.log("couponObj 1:", couponObj);
 
-        setCoupon(modCouponObj);
+        // console.log(couponObj);
+        setCoupon(couponObj);
         setLoading(false);
       })
       .catch((err) => {
-        console.log("error data", err.data);
+        console.log("error data", err.response);
         setCoupon("error");
         setLoading(false);
       });
   }, [props.match.params.couponUrl]);
 
-  const downloadPass = async () => {
+  const downloadPass = () => {
     window.open(coupon.pkpassUrl, "_blank");
+  };
+  const openMapLink = (linkId) => {
+    window.open(coupon.mapUrls[linkId], "_blank");
   };
 
   return (
@@ -105,14 +150,14 @@ const CouponView = (props) => {
         <h1>Loading</h1>
       ) : coupon !== "error" ? (
         <>
-          <SubTitle>Conexion a internet exitosa</SubTitle>
-          <Title>Tenemos un regalo para ti</Title>
+          <SubTitle>¡Conexión a internet exitosa!</SubTitle>
+          <Title>Disfruta de esta promoción exclusiva</Title>
           <ImgCont>
             <Img src={coupon.webImgUrl} />
           </ImgCont>
+          <MiniTitle>Para hacer valida tu promoción:</MiniTitle>
           <SubText>
-            Toma captura de pantalla y muestrala en el mostrador para hacer
-            valido el cupon
+            Toma captura de pantalla y enséñala en el mostrador.
           </SubText>
           <>
             {isAndroid ? null : (
@@ -123,10 +168,18 @@ const CouponView = (props) => {
           </>
           <MiniTitle>Sucursales Cercanas</MiniTitle>
           <SucursalesCont>
-            {coupon.sucursales.map((sucursal) => (
-              <Sucursales>{sucursal}</Sucursales>
+            {coupon.sucursales.map((sucursal, i) => (
+              <Bullet key={i}>
+                <Sucursales onClick={() => openMapLink(i)}>
+                  {sucursal}
+                </Sucursales>
+              </Bullet>
             ))}
           </SucursalesCont>
+          <Footer>
+            Desarrollado por
+            <ATag href="https://ava-rewards.com/"> AVA REWARDS</ATag>
+          </Footer>
         </>
       ) : (
         <h1>Error</h1>

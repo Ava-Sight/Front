@@ -3,8 +3,7 @@ import styled from "styled-components";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Axios from "axios";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,10 +19,12 @@ const ItemCont = styled.div`
   }
 `;
 const ListProperty1 = styled.div`
-  width: 30%;
+  width: 25%;
 `;
 const ListProperty2 = styled.div`
-  width: 25%;
+  width: 30%;
+  color: #ff6601;
+  text-decoration: underline;
 `;
 const ListProperty3 = styled.div`
   width: 25%;
@@ -90,53 +91,38 @@ const ListItem = ({ coupon, reloadCoupon }) => {
   };
 
   const deleteItem = () => {
-    confirmAlert({
-      title: "Estas seguro",
-      message: "",
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () => {
-            //delete enpoint
-            Axios.delete(`https://avasight.herokuapp.com/coupon/${coupon.id}`)
-              .then(async (res) => {
-                await reloadCoupon();
-                toast.success("Cupon Eliminado exitosamente 🚀 ", {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-              })
-              .catch((err) => {
-                //react toasty failed delete
-                toast.success("Creacion de cupon fallida", {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-              });
-          },
-        },
-        {
-          label: "No",
-        },
-      ],
-    });
+    Axios.delete(`https://avasight.herokuapp.com/coupon/${coupon.id}`)
+      .then(async (res) => {
+        await reloadCoupon();
+        toast.success("Cupon Eliminado exitosamente 🚀 ", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        //react toasty failed delete
+        toast.success("Eliminación de cupon fallida", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   };
 
   return (
     <>
       <ItemCont onClick={modalFire}>
         <ListProperty1>{coupon.promo}</ListProperty1>
-        <ListProperty2>{coupon.url}</ListProperty2>
+        <ListProperty2>{`ava-rewards.com/${coupon.url}`}</ListProperty2>
         <ListProperty3>{coupon.empresa}</ListProperty3>
         <ListProperty4>n/a</ListProperty4>
         <ListProperty5>n/a</ListProperty5>
@@ -150,7 +136,7 @@ const ListItem = ({ coupon, reloadCoupon }) => {
           </ModalTextCont>
           <ModalTextCont>
             <ModalSubtitle>URL: </ModalSubtitle>
-            <ModalText>{coupon.url}</ModalText>
+            <ModalText>{`ava-rewards.com/${coupon.url}`}</ModalText>
           </ModalTextCont>
           <ModalTextCont>
             <ModalSubtitle>Empresa:</ModalSubtitle>

@@ -120,11 +120,7 @@ const Login = () => {
       <SubText>Ingresa a tu tablero para crear y distribuir cupones</SubText>
       <FormCont>
         <InputLabel>Usuario</InputLabel>
-        <Input
-          name="username"
-          placeholder="tuemailaqui@email.com"
-          ref={register}
-        />
+        <Input name="username" placeholder="hola@email.com" ref={register} />
         <InputLabel>Contraseña</InputLabel>
         <Input
           name="password"
@@ -136,10 +132,10 @@ const Login = () => {
         <Button onClick={handleSubmit(onSubmit)}>Aceder</Button>
         <SubText>Olvidaste tu contraseña?</SubText>
       </FormCont>
-      <FooterText>
+      {/* <FooterText>
         Te interesa incrementar tus ventas con AVA REWARDS?{" "}
         <ContactText>Contactanos</ContactText>
-      </FooterText>
+      </FooterText> */}
     </MainCont>
   );
 };

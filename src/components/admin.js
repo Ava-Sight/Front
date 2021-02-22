@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 
 //components
@@ -20,18 +20,18 @@ const Page = styled.div`
 `;
 
 const Admin = () => {
+  let { url, path } = useRouteMatch();
+  console.log(url, path);
   return (
-    <Router>
-      <MainContainer>
-        <SideNav />
-        <Page>
-          <Switch>
-            <Route exact path="/admin/crear-cupon" component={NewCoupon} />
-            <Route exact path="/admin" component={CouponList} />
-          </Switch>
-        </Page>
-      </MainContainer>
-    </Router>
+    <MainContainer>
+      <SideNav url={url} />
+      <Page>
+        <Switch>
+          <Route path={`${path}/crear-cupon`} component={NewCoupon} />
+          <Route exact path={path} component={CouponList} />
+        </Switch>
+      </Page>
+    </MainContainer>
   );
 };
 
