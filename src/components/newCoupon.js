@@ -30,7 +30,12 @@ const FormCont = styled.form`
   background-color: white;
   flex-direction: column;
   border-radius: 30px;
-
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+  /* overflow-x: hidden; */
   height: 80vh;
   border: 1px solid lightgray;
   align-self: center;
@@ -71,12 +76,14 @@ const FormTop = styled.div`
 const FormTopCont = styled.div`
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 const DropCont = styled.div``;
 const DropArea = styled(FileDrop)`
-  padding: 5px 0 5px 0;
-  width: 130%;
+  padding: 5px 10px 5px 10px;
+  width: 100%;
+  min-width: 125px;
   /* border: 1px dashed black; */
   border: ${(props) =>
     props.fileDropped ? "1px dashed #ff6604" : "1px dashed black"};
@@ -96,6 +103,7 @@ const FormMiddle = styled.div`
 const FormMiddleCont = styled.div`
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 const FormInputCont = styled.div`
@@ -128,11 +136,13 @@ const FormBottomCont = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-around;
+  flex-wrap: wrap;
 `;
 const FormBottomContLeft = styled.div`
   display: flex;
   flex-direction: column;
   width: 45%;
+  min-width: 300px;
 `;
 const FormBottomSmallInputCont = styled.div`
   display: flex;
@@ -143,6 +153,7 @@ const FormBottomContRight = styled.div`
   display: flex;
   flex-direction: column;
   width: 45%;
+  min-width: 300px;
 `;
 
 const ButtonCont = styled.div`
