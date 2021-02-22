@@ -178,7 +178,7 @@ const CouponView = (props) => {
             {coupon.sucursales.map((sucursal, i) => (
               <Bullet key={i}>
                 <Sucursales>
-                  {`${sucursal} - `}<SucursalLink onClick={() => openMapLink(i}>Abrir Mapa</SucursalLink>
+                  {`${sucursal} - `}<SucursalLink onClick={() => openMapLink(i)}>Abrir Mapa</SucursalLink>
                 </Sucursales>
               </Bullet>
             ))}
