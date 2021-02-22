@@ -3,7 +3,7 @@ import styled from "styled-components";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Axios from "axios";
-
+import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -39,7 +39,12 @@ const ListProperty5 = styled.div`
 const ModalCouponCont = styled.div`
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 600px;
+`;
+const ModalCouponForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 600px;
 `;
 
 const ModalTextCont = styled.div`
@@ -50,10 +55,15 @@ const ModalTextCont = styled.div`
 const ModalSubtitle = styled.div`
   font-weight: bold;
   font-size: 15px;
-  width: 50%;
+  width: 20%;
 `;
 const ModalText = styled.div`
-  width: 40%;
+  width: 80%;
+`;
+const ModalTextLink = styled.div`
+  width: 80%;
+  color: #ff6601;
+  text-decoration: underline;
 `;
 
 const Button = styled.div`
@@ -83,17 +93,68 @@ const ModalStyled = styled(Modal)`
   }
 `;
 
-const ListItem = ({ coupon, reloadCoupon }) => {
-  const [modalActive, setModalActive] = useState(false);
+const FormInput = styled.input`
+  width: 65%;
+`;
 
+const ListItem = ({ coupon, reFetch }) => {
+  const [modalActive, setModalActive] = useState(false);
+  const [editActive, setEditActive] = useState(false);
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      empresa: coupon.empresa,
+      promo: coupon.promo,
+      sucursales: coupon.sucursales,
+      url: coupon.url,
+    },
+  });
+  const onSubmit = async (data) => {
+    console.log("form data:", data);
+    await editCoupon(data);
+    await reFetch();
+    reset();
+  };
+  const toggleEdit = () => setEditActive(!editActive);
+
+  const openLink = (linkId) => {
+    window.open(`ava-rewards.com/${coupon.url}`, "_blank");
+  };
   const modalFire = () => {
     setModalActive(!modalActive);
   };
 
-  const deleteItem = () => {
+  const editCoupon = (data) => {
+    Axios.put(`https://avasight.herokuapp.com/coupon/${coupon.id}`, data)
+      .then(async (res) => {
+        await reFetch();
+        toast.success("Cupon editado exitosamente 🚀 ", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        //react toasty failed delete
+        toast.success("Edición de cupon fallida", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  };
+
+  const deleteCoupon = () => {
     Axios.delete(`https://avasight.herokuapp.com/coupon/${coupon.id}`)
       .then(async (res) => {
-        await reloadCoupon();
+        await reFetch();
         toast.success("Cupon Eliminado exitosamente 🚀 ", {
           position: "top-right",
           autoClose: 5000,
@@ -129,24 +190,65 @@ const ListItem = ({ coupon, reloadCoupon }) => {
       </ItemCont>
       <ModalStyled open={modalActive} onClose={modalFire}>
         <h2>{coupon.promo}</h2>
-        <ModalCouponCont>
-          <ModalTextCont>
-            <ModalSubtitle>Nombre de promocion: </ModalSubtitle>
-            <ModalText>{coupon.promo}</ModalText>
-          </ModalTextCont>
-          <ModalTextCont>
-            <ModalSubtitle>URL: </ModalSubtitle>
-            <ModalText>{`ava-rewards.com/${coupon.url}`}</ModalText>
-          </ModalTextCont>
-          <ModalTextCont>
-            <ModalSubtitle>Empresa:</ModalSubtitle>
-            <ModalText>{coupon.empresa}</ModalText>
-          </ModalTextCont>
-        </ModalCouponCont>
-        <ButtonCont>
-          <Button>Editar</Button>
-          <Button onClick={deleteItem}>Eliminar</Button>
-        </ButtonCont>
+
+        {editActive ? (
+          <ModalCouponForm onSubmit={handleSubmit(onSubmit)}>
+            <ModalTextCont>
+              <ModalSubtitle>Nombre de promocion: </ModalSubtitle>
+              <FormInput name="promo" ref={register} placeholder="promo" />
+            </ModalTextCont>
+            <ModalTextCont>
+              <ModalSubtitle>URL: </ModalSubtitle>
+              <FormInput name="url" ref={register} placeholder="url" />
+            </ModalTextCont>
+            <ModalTextCont>
+              <ModalSubtitle>Empresa:</ModalSubtitle>
+              <FormInput name="empresa" ref={register} placeholder="empresa" />
+            </ModalTextCont>
+            <ModalTextCont>
+              <ModalSubtitle>Sucursales:</ModalSubtitle>
+              <FormInput
+                name="sucursales"
+                ref={register}
+                placeholder="sucursales"
+              />
+            </ModalTextCont>
+          </ModalCouponForm>
+        ) : (
+          <ModalCouponCont>
+            <ModalTextCont>
+              <ModalSubtitle>Nombre de promocion: </ModalSubtitle>
+              <ModalText>{coupon.promo}</ModalText>
+            </ModalTextCont>
+            <ModalTextCont>
+              <ModalSubtitle>URL: </ModalSubtitle>
+              <ModalTextLink
+                onClick={openLink}
+              >{`ava-rewards.com/${coupon.url}`}</ModalTextLink>
+            </ModalTextCont>
+            <ModalTextCont>
+              <ModalSubtitle>Empresa:</ModalSubtitle>
+              <ModalText>{coupon.empresa}</ModalText>
+            </ModalTextCont>
+            <ModalTextCont>
+              <ModalSubtitle>Sucursales:</ModalSubtitle>
+              <ModalText>{coupon.sucursales}</ModalText>
+            </ModalTextCont>
+          </ModalCouponCont>
+        )}
+
+        {editActive ? (
+          <ButtonCont>
+            <Button onClick={toggleEdit}>Retroceder</Button>
+            <Button onClick={handleSubmit(onSubmit)}>Aplicar</Button>
+          </ButtonCont>
+        ) : (
+          <ButtonCont>
+            <Button onClick={toggleEdit}>Editar</Button>
+            <Button onClick={deleteCoupon}>Eliminar</Button>
+          </ButtonCont>
+        )}
+
         <ToastContainer />
       </ModalStyled>
     </>

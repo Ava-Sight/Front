@@ -180,7 +180,7 @@ const Button = styled.button`
   }
 `;
 
-const NewCoupon = () => {
+const NewCoupon = ({ reFetch }) => {
   //ref
 
   //states
@@ -192,6 +192,7 @@ const NewCoupon = () => {
   const onSubmit = async (data) => {
     console.log("form data:", data);
     await uploadCoupon(data);
+    await reFetch();
     reset();
   };
 

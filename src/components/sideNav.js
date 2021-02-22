@@ -4,6 +4,11 @@ import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Logo from "../assets/logo.png";
 
+//icons
+import Crear from "../assets/crearIcon.png";
+import Active from "../assets/activeIcon.png";
+import Logout from "../assets/logoutIcon.png";
+
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,6 +43,9 @@ const StyledNavLink = styled(NavLink).attrs((props) => ({
   }
 `;
 
+const Icon = styled.img`
+  margin-right: 5px;
+`;
 const Button = styled.div`
   padding: 20px 0 20px 0;
   width: 100%;
@@ -75,12 +83,19 @@ const SideNav = () => {
         <LogoImg src={Logo} />
       </LogoCont>
       <LinkCont>
-        <StyledNavLink to="/admin/crear-cupon">Crear cupón</StyledNavLink>
+        <StyledNavLink to="/admin/crear-cupon">
+          <Icon src={Crear} />
+          Crear cupón
+        </StyledNavLink>
         <StyledNavLink exact to="/admin">
+          <Icon src={Active} />
           Cupones activos
         </StyledNavLink>
       </LinkCont>
-      <Button onClick={logout}>Cerrar sesión</Button>
+      <Button onClick={logout}>
+        <Icon src={Logout} />
+        Cerrar sesión
+      </Button>
     </MainContainer>
   );
 };

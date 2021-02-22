@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 
@@ -21,14 +21,26 @@ const Page = styled.div`
 
 const Admin = () => {
   let { url, path } = useRouteMatch();
-  console.log(url, path);
+  const [FireEffect, setFireEffect] = useState(false);
+  const reloadCoupons = (couponId) => {
+    setFireEffect(!FireEffect);
+  };
   return (
     <MainContainer>
       <SideNav url={url} />
       <Page>
         <Switch>
-          <Route path={`${path}/crear-cupon`} component={NewCoupon} />
-          <Route exact path={path} component={CouponList} />
+          <Route
+            path={`${path}/crear-cupon`}
+            render={() => <NewCoupon reFetch={reloadCoupons} />}
+          />
+          <Route
+            exact
+            path={path}
+            component={() => (
+              <CouponList reFetch={reloadCoupons} fireEffect={FireEffect} />
+            )}
+          />
         </Switch>
       </Page>
     </MainContainer>
