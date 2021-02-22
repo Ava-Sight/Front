@@ -9,14 +9,14 @@ import AddToWallet from "../assets/appleWallet.svg";
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* background-color: #f7f8fc; */
-  height: 100vh;
+  background-color: #f7f8fc;
+  /* height: 80vh; */
 
   /* flex-basis: 100%; */
   width: 100%;
   align-content: center;
   align-items: center;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 `;
 
 const Title = styled.div`
@@ -44,6 +44,7 @@ const SubText = styled.div`
   margin-top: 15px;
   margin-bottom: 25px;
   text-align: center;
+  width: 90%;
 `;
 
 const MiniTitle = styled.div`
@@ -53,12 +54,13 @@ const MiniTitle = styled.div`
 
 const SucursalesCont = styled.ul`
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   margin-top: 20px;
   align-self: flex-start;
-  /* margin-left: 40px; */
+  padding: 0 0 0 0;
+  margin-left: 40px;
   flex-wrap: wrap;
-  width: 100%;
+  width: calc(100%);
   justify-content: space-around;
   ::after {
     height: 0;
@@ -72,8 +74,10 @@ const Bullet = styled.li`
   margin-bottom: 15px;
   width: 45%;
 `;
-const Sucursales = styled.li`
+const Sucursales = styled.div`
   display: flex;
+  color: #ff6601;
+  text-decoration: underline;
 `;
 
 const SucursalesMap = styled.div`
