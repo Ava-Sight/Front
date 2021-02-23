@@ -10,7 +10,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #f7f8fc;
-  /* height: 80vh; */
+  height: 100vh;
 
   /* flex-basis: 100%; */
   width: 100%;
@@ -100,7 +100,7 @@ const AddWalletImg = styled.img`
 
 const Footer = styled.div`
   display: flex;
-  font-size: 16px;
+  font-size: 12px;
   /* margin-top: auto; */
 `;
 const ATag = styled.a`
