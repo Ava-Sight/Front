@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import styled from "styled-components";
 import { isAndroid } from "react-device-detect";
-
+import fileDownload from "js-file-download";
 //imgs
 import AddToWallet from "../assets/appleWallet.svg";
 
@@ -146,7 +146,15 @@ const CouponView = (props) => {
   }, [props.match.params.couponUrl]);
 
   const downloadPass = () => {
-    window.open(coupon.pkpassUrl, "_blank");
+    Axios.get(coupon.pkpassUrl)
+      .then((res) => {
+        console.log("pkpass res", res);
+        fileDownload(res.data, "pass.pkpass");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // window.open(coupon.pkpassUrl, "_blank");
   };
   const openMapLink = (linkId) => {
     window.open(coupon.mapUrls[linkId], "_blank");
