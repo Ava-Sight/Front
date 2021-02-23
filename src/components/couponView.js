@@ -54,12 +54,12 @@ const MiniTitle = styled.div`
 
 const SucursalesCont = styled.ul`
   display: flex;
-  /* flex-direction: row; */
+  flex-direction: column;
   margin-top: 20px;
   align-self: flex-start;
   padding: 0 0 0 0;
   margin-left: 40px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   width: calc(100%);
   justify-content: space-around;
   ::after {
@@ -79,9 +79,9 @@ const Sucursales = styled.div`
 `;
 
 const SucursalLink = styled.div`
-color: #ff6601;
-text-decoration:underline;
-`
+  color: #ff6601;
+  text-decoration: underline;
+`;
 
 const SucursalesMap = styled.div`
   font-size: 15px;
@@ -178,7 +178,10 @@ const CouponView = (props) => {
             {coupon.sucursales.map((sucursal, i) => (
               <Bullet key={i}>
                 <Sucursales>
-                  {`${sucursal} - `}<SucursalLink onClick={() => openMapLink(i)}>Abrir Mapa</SucursalLink>
+                  {`${sucursal} - `}
+                  <SucursalLink onClick={() => openMapLink(i)}>
+                    Abrir Mapa
+                  </SucursalLink>
                 </Sucursales>
               </Bullet>
             ))}
