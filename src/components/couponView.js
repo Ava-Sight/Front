@@ -40,7 +40,7 @@ const Img = styled.img`
 `;
 
 const SubText = styled.div`
-  font-size: 20px;
+  font-size: 17px;
   margin-top: 15px;
   margin-bottom: 25px;
   text-align: center;
@@ -101,7 +101,7 @@ const AddWalletImg = styled.img`
 const Footer = styled.div`
   display: flex;
   font-size: 12px;
-  /* margin-top: auto; */
+  margin-bottom: 15px;
 `;
 const ATag = styled.a`
   margin-left: 5px;
@@ -146,17 +146,7 @@ const CouponView = (props) => {
   }, [props.match.params.couponUrl]);
 
   const downloadPass = () => {
-    Axios.get(coupon.pkpassUrl, {
-      responseType: "blob",
-    })
-      .then((res) => {
-        console.log("pkpass res", res);
-        fileDownload(res.data, "pass.pkpass");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // window.open(coupon.pkpassUrl, "_blank");
+    window.open(coupon.pkpassUrl, "_blank");
   };
   const openMapLink = (linkId) => {
     window.open(coupon.mapUrls[linkId], "_blank");
