@@ -149,7 +149,7 @@ const CouponView = (props) => {
     window.open(coupon.pkpassUrl, "_blank");
   };
   const openMapLink = (linkId) => {
-    window.open(coupon.mapUrls[linkId], "_blank");
+    window.open(coupon.mapUrls[linkId], "_self");
   };
 
   return (
