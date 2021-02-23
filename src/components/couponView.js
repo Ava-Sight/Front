@@ -101,7 +101,7 @@ const AddWalletImg = styled.img`
 const Footer = styled.div`
   display: flex;
   font-size: 12px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 const ATag = styled.a`
   margin-left: 5px;
