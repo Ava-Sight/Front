@@ -146,7 +146,9 @@ const CouponView = (props) => {
   }, [props.match.params.couponUrl]);
 
   const downloadPass = () => {
-    Axios.get(coupon.pkpassUrl)
+    Axios.get(coupon.pkpassUrl, {
+      responseType: "blob",
+    })
       .then((res) => {
         console.log("pkpass res", res);
         fileDownload(res.data, "pass.pkpass");
