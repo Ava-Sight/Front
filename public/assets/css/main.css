@@ -420,7 +420,7 @@ button,
 #header a {
   color: inherit; }
 
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 800px) {
   #header h1 {
     font-size: 2em; }
   #header p {
@@ -453,7 +453,6 @@ img {
   img {
     margin-left: auto;
     margin-right: auto;
-    margin-top: -80%;
     margin-bottom: 30%;
     width: 50%;
   }
