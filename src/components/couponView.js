@@ -72,7 +72,7 @@ const Bullet = styled.li`
   display: list-item;
   font-size: 15px;
   margin-bottom: 15px;
-  width: 45%;
+  width: 100%;
 `;
 const Sucursales = styled.div`
   display: flex;
