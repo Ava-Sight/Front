@@ -81,6 +81,7 @@ const Sucursales = styled.div`
 const SucursalLink = styled.div`
   color: #ff6601;
   text-decoration: underline;
+  margin-left: 5px;
 `;
 
 const SucursalesMap = styled.div`
