@@ -60,7 +60,7 @@ const SucursalesCont = styled.ul`
   padding: 0 0 0 0;
   margin-left: 40px;
   /* flex-wrap: wrap; */
-  width: calc(100%);
+  width: calc(100%-40px);
   justify-content: space-around;
   ::after {
     height: 0;
