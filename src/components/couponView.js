@@ -89,7 +89,7 @@ const SucursalesMap = styled.div`
   margin-bottom: 15px;
 `;
 
-const AddWalletCont = styled.div`
+const AddWalletCont = styled.a`
   width: 50%;
   margin-bottom: 10px;
 `;
@@ -146,7 +146,7 @@ const CouponView = (props) => {
   }, [props.match.params.couponUrl]);
 
   const downloadPass = () => {
-    window.open(coupon.pkpassUrl, "_blank");
+    // window.open(coupon.pkpassUrl, "_blank");
   };
   const openMapLink = (linkId) => {
     window.open(coupon.mapUrls[linkId], "_self");
@@ -169,7 +169,7 @@ const CouponView = (props) => {
           </SubText>
           <>
             {isAndroid ? null : (
-              <AddWalletCont>
+              <AddWalletCont href={coupon.pkpassUrl}>
                 <AddWalletImg onClick={downloadPass} src={AddToWallet} />
               </AddWalletCont>
             )}
