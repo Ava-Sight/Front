@@ -138,7 +138,7 @@ const CouponView = (props) => {
         // console.log(couponObj);
         await setCoupon(couponObj);
         window.location.href = coupon.pkpassUrl;
-	buttonRef.current.click();
+	//buttonRef.current.click();
 	setLoading(false);
       })
       .catch((err) => {
