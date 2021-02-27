@@ -141,7 +141,7 @@ const CouponView = (props) => {
 	buttonRef.current.click();
 	setLoading(false);
       })
-      .catch((err) => {
+      .catch(async (err) => {
         console.log("error data", err.response);
         await setCoupon("error");
         setLoading(false);
