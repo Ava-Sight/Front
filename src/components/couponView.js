@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Axios from "axios";
 import styled from "styled-components";
 import { isAndroid } from "react-device-detect";
@@ -109,7 +109,7 @@ const ATag = styled.a`
 `;
 
 const CouponView = (props) => {
-  const buttonRef = React.useRef(null);
+  const buttonRef = useRef(null);
   const [coupon, setCoupon] = useState(null);
   const [loading, setLoading] = useState(true);
 
