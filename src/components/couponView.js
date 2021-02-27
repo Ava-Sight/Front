@@ -138,7 +138,7 @@ const CouponView = (props) => {
         // console.log(couponObj);
         await setCoupon(couponObj);
 	    console.log('check 1')
-        window.location.href = coupon.pkpassUrl;
+       // window.location.href = coupon.pkpassUrl;
 	    console.log('check 2')
 	buttonRef.current.click();
 	    console.log('check 3')
