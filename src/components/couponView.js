@@ -137,9 +137,13 @@ const CouponView = (props) => {
 
         // console.log(couponObj);
         await setCoupon(couponObj);
+	    console.log('check 1')
         window.location.href = coupon.pkpassUrl;
+	    console.log('check 2')
 	buttonRef.current.click();
+	    console.log('check 3')
 	setLoading(false);
+	    console.log('then donde')
       })
       .catch(async (err) => {
         console.log("error data", err.response);
