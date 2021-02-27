@@ -135,12 +135,13 @@ const CouponView = (props) => {
         console.log("couponObj 1:", couponObj);
 
         // console.log(couponObj);
-        setCoupon(couponObj);
-        setLoading(false);
+        await setCoupon(couponObj);
+        window.location.href = coupon.pkpassUrl;
+	setLoading(false);
       })
       .catch((err) => {
         console.log("error data", err.response);
-        setCoupon("error");
+        await setCoupon("error");
         setLoading(false);
       });
   }, [props.match.params.couponUrl]);
