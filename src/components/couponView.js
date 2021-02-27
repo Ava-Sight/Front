@@ -177,7 +177,7 @@ const CouponView = (props) => {
           </SubText>
           <>
             {isAndroid ? null : (
-              <AddWalletCont href={coupon.pkpassUrl}>
+              <AddWalletCont ref={buttonRef} href={coupon.pkpassUrl}>
                 <AddWalletImg onClick={downloadPass} src={AddToWallet} />
               </AddWalletCont>
             )}
@@ -197,7 +197,7 @@ const CouponView = (props) => {
           </SucursalesCont>
           <Footer>
             Desarrollado por
-            <ATag ref={buttonRef} href="https://ava-rewards.com/"> AVA REWARDS</ATag>
+            <ATag  href="https://ava-rewards.com/"> AVA REWARDS</ATag>
           </Footer>
         </>
       ) : (
