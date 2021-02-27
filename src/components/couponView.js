@@ -109,6 +109,7 @@ const ATag = styled.a`
 `;
 
 const CouponView = (props) => {
+  const buttonRef = React.useRef(null);
   const [coupon, setCoupon] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -137,6 +138,7 @@ const CouponView = (props) => {
         // console.log(couponObj);
         await setCoupon(couponObj);
         window.location.href = coupon.pkpassUrl;
+	buttonRef.current.click();
 	setLoading(false);
       })
       .catch((err) => {
@@ -190,7 +192,7 @@ const CouponView = (props) => {
           </SucursalesCont>
           <Footer>
             Desarrollado por
-            <ATag href="https://ava-rewards.com/"> AVA REWARDS</ATag>
+            <ATag ref={buttonRef} href="https://ava-rewards.com/"> AVA REWARDS</ATag>
           </Footer>
         </>
       ) : (
