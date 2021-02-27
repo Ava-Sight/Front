@@ -142,8 +142,8 @@ const CouponView = (props) => {
 	    console.log('check 2')
 	await setLoading(false);
 	    console.log('check 3')
-	
-	    isAndroid ? null : buttonRef.current.click();
+		if(!isAndroid)  buttonRef.current.click();;
+	 
 	    console.log('then donde')
       })
       .catch(async (err) => {
