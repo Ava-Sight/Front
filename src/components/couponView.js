@@ -140,9 +140,10 @@ const CouponView = (props) => {
 	    console.log('check 1')
        // window.location.href = coupon.pkpassUrl;
 	    console.log('check 2')
-	buttonRef.current.click();
+	await setLoading(false);
 	    console.log('check 3')
-	setLoading(false);
+	
+	    buttonRef.current.click();
 	    console.log('then donde')
       })
       .catch(async (err) => {
