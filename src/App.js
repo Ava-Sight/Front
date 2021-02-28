@@ -11,6 +11,8 @@ import Login from "./components/login";
 import Admin from "./components/admin";
 import CouponView from "./components/couponView";
 import PrivateRoute from "./utils/privateRoute";
+import CouponView from "./components/couponView";
+import CouponLoad from "./components/couponLoad";
 const MainContainer = styled.div`
   display: flex;
   width: 100%;
@@ -40,7 +42,9 @@ function App() {
 
             <PrivateRoute strict path="/admin" component={Admin} />
             <Route exact path="/:couponUrl" component={CouponView} />
-          </Switch>
+          <Route exact path="/:couponUrlRedirect" compon
+ent={CouponLoad} />
+	  </Switch>
         </Page>
       </MainContainer>
     </Router>
