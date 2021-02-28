@@ -42,7 +42,7 @@ function App() {
 
             <PrivateRoute strict path="/admin" component={Admin} />
             <Route exact path="/:couponUrl" component={CouponView} />
-          <Route exact path="/:couponUrlRedirect" compon
+          <Route exact path="/redirect/:couponUrlRedirect" compon
 ent={CouponLoad} />
 	  </Switch>
         </Page>
